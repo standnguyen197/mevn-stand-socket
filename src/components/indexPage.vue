@@ -1,8 +1,8 @@
 <template>
-  <b-row>
+  <div>
     <b-btn @click="clickOn">Click</b-btn>
-    {{ testMessage }}
-  </b-row>
+    <p v-if="socketStatus">{{ testMessage }} - {{ socketStatusText }}</p>
+  </div>
 </template>
 
 <script>
@@ -13,15 +13,22 @@ export default {
   name: 'indexPage',
   data () {
     return {
-    testMessage: 'Ahihi'
+    testMessage: 'Ahihi',
+    socketStatus: false,
+    socketStatusText:''
     }
   },
   sockets:{
-    connect: function(){
-      console.log('socket connected')
+    connect(){
+      console.log('Socket Client Connected')
+      this.socketStatus = true;
     },
     customEmit: function(val){
       console.log(`this method was fired by the socket server. ${val.hello}`)
+    },
+    voiceEmitReq(data){
+      this.socketStatusText = data.imes
+      console.log(data.imes);
     }
   },
   methods: {

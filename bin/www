@@ -29,11 +29,10 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 io.on('connection', function (socket) {
-  socket.emit('customEmit', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+    console.log('Socket Server Connected');
 });
+var apiRoute = require('../brainCore/voiceAI')(io);
+app.use('/brainCore/voiceAI', apiRoute);
 /**
  * Normalize a port into a number, string, or false.
  */
